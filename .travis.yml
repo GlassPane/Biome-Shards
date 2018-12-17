@@ -20,11 +20,11 @@ before_deploy:
 deploy:
     provider: releases
     api_key:
-        secure:
+        secure:als7q6gOVhN8sup7qvKipcg8ylAwGMiy24OVT0CNCkNNiQ6Q77MlAC+JljOPb9Dh4H1RWVMM+TTtZO4etLVQvfjcU0PGRpnJgEjIKb7XOTfJdJih2yakq/1FNZCb1PbWjCbyB4SkBEKdgSIGLl+/uBoE/Q6mRVlDtYVAzHz5HZtiZykSi/KZ0vUR6dDtvuH1G1B2tFovEJPhmgu+Gz6ADrZIJjCalmNGybOmfjaKwVW6lYE8WStFGbveppf/rCnjjj0b39Mq8gTbCkkm0Kfiqky0j2rAcTY19z2Zx42BlVZjODiTwH2GW//B17JUL49bK+HtyV4OliHPeVya/3o55aCg/7sxiCqDkmDooQn10uCGFKCI02+eUfq2uMTSb8e8a+lfxvOKPj18UWdnUPc+rfCvzJYNf39hfrNTAsnpFH5HrfdPEl12qFTQgqME4Dz33W72SylUDWIbfQ4auNsOLA3vcqiQHZKg0XXqYj71C1Ou6l3sboTh/KTqC37v0/NwmgzYTy8kF7HN/E2eN378hJRYxHvfBwxcmHAhecNjAIxI6vh1mpnKDc4VHJqPq3lsal9tX3mGeIvqJWlwbvuE8JjD2x27v+Tbj5jvwf6DougeZOg02M/pJmBALT+tvu6I52fDHZQ1Gh2iEemTbaFJ2+G+7+df1Mx4AMAvH/V6yBw=
     file_glob: true
     file: ./build/libs/*
     skip_cleanup: true
     target_commitsh: $TRAVIS_TAG
     on:
-        repo: UpcraftLP/Speech-To-Text
+        repo: GlassPane/Biome-Shards
         tags: true
