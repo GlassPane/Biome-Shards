@@ -8,3 +8,6 @@ item.biome_shards.mini_island.name=Miniature Island
 
 #Stats
 stat.biome_shards.islandsSpawned=Floating Islands Spawned
+
+#Config
+config.biome_shards.general.title=General
