@@ -1,0 +1,10 @@
+#PARSE_ESCAPES
+
+#Items
+item.biome_shards.biome_shard.name=Biome Shard
+item.biome_shards.attuned_biome_shard.name=Attuned Biome Shard
+item.biome_shards.shard_of_laputa.name=Shard Of Laputa
+item.biome_shards.mini_island.name=Miniature Island
+
+#Stats
+stat.biome_shards.islandsSpawned=Floating Islands Spawned
