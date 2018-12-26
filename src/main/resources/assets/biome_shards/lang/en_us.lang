@@ -11,3 +11,6 @@ stat.biome_shards.islandsSpawned=Floating Islands Spawned
 
 #Config
 config.biome_shards.general.title=General
+
+#TODO remove
+message.biome_shards.wrongBiome=Biome not supported: %s, please find a snowy biome!

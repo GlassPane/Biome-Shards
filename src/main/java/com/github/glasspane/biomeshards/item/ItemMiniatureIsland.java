@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 
@@ -27,9 +28,12 @@ public class ItemMiniatureIsland extends ItemBase {
             placementSettings.setRotation(Rotation.values()[itemRand.nextInt(Rotation.values().length)]);
             BlockPos pos = playerIn.getPosition();
             ResourceLocation structure = SupportedBiomes.getStructure(worldIn.getBiome(pos));
-            StructureLoaders.VANILLA_NBT.placeInWorld(structure, worldIn, pos, placementSettings, true);
-            playerIn.addStat(BiomeShardStats.ISLANDS_SPAWNED);
-            if(!playerIn.isCreative()) stack.shrink(1);
+            if(structure != null) {
+                StructureLoaders.VANILLA_NBT.placeInWorld(structure, worldIn, pos, placementSettings, true);
+                playerIn.addStat(BiomeShardStats.ISLANDS_SPAWNED);
+                if(!playerIn.isCreative()) stack.shrink(1);
+            }
+            else playerIn.sendStatusMessage(new TextComponentTranslation("message.biome_shards.wrongBiome", worldIn.getBiome(pos).getRegistryName()).setStyle(new Style().setColor(TextFormatting.RED)), true);
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
