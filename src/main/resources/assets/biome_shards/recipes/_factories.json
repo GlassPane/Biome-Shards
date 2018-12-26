@@ -1,0 +1,5 @@
+{
+    "conditions": {
+        "shard_reset_enabled": "com.github.glasspane.biomeshards.config.ConditionShardReset"
+    }
+}

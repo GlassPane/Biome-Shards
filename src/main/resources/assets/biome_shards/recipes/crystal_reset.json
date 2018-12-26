@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "biome_shards:shards",
+    "conditions": [
+        {
+            "type": "biome_shards:shard_reset_enabled"
+        }
+    ],
+    "ingredients": [
+        {
+            "item": "biome_shards:biome_shard"
+        }
+    ],
+    "result": {
+        "item": "biome_shards:biome_shard"
+    }
+}
