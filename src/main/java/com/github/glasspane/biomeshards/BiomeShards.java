@@ -32,7 +32,12 @@ public class BiomeShards {
     public static final String UPDATE_JSON = "@UPDATE_JSON@";
 
     public static final String FINGERPRINT_KEY = "@FINGERPRINTKEY@";
-
+    public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(MODID + ".name") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(BiomeShardItems.SHARD_OF_LAPUTA);
+        }
+    };
     @SidedProxy(clientSide = "com.github.glasspane.biomeshards.proxy.ClientProxy", serverSide = "com.github.glasspane.biomeshards.proxy.ServerProxy")
     public static IProxy proxy;
 
@@ -47,11 +52,4 @@ public class BiomeShards {
     public void postInit(FMLPostInitializationEvent event) {
         SupportedBiomes.init();
     }
-
-    public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(MODID + ".name") {
-        @Override
-        public ItemStack createIcon() {
-            return new ItemStack(BiomeShardItems.SHARD_OF_LAPUTA);
-        }
-    };
 }

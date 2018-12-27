@@ -14,8 +14,7 @@ public class BiomeShardItems {
 
     public static final Item BIOME_SHARD = new ItemBiomeShard("biome_shard");
     public static final Item SHARD_OF_LAPUTA = new ItemBase("shard_of_laputa").setCreativeTab(BiomeShards.CREATIVE_TAB); //TODO dungeon loot
-    // TODO custom crafting
-
     public static final Item MINI_ISLAND = new ItemMiniatureIsland("mini_island");
 
+    //TODO JEI integration!
 }
