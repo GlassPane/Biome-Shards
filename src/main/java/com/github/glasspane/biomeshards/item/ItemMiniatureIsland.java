@@ -6,12 +6,14 @@ import com.github.glasspane.biomeshards.init.*;
 import com.github.upcraftlp.glasspane.api.structure.StructureLoaders;
 import com.github.upcraftlp.glasspane.item.ItemBase;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.*;
@@ -24,6 +26,7 @@ public class ItemMiniatureIsland extends ItemBase {
     public ItemMiniatureIsland(String name) {
         super(name);
         this.setCreativeTab(BiomeShards.CREATIVE_TAB);
+        this.setHasSubtypes(true);
     }
 
     @Override
@@ -31,18 +34,38 @@ public class ItemMiniatureIsland extends ItemBase {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if(!worldIn.isRemote) {
             //TODO spawn composite island
-            PlacementSettings placementSettings = new PlacementSettings();
-            placementSettings.setRotation(Rotation.values()[itemRand.nextInt(Rotation.values().length)]);
-            BlockPos pos = playerIn.getPosition();
-            ResourceLocation structure = SupportedBiomes.getStructure(worldIn.getBiome(pos));
-            if(structure != null) {
-                StructureLoaders.VANILLA_NBT.placeInWorld(structure, worldIn, pos, placementSettings, true);
-                playerIn.addStat(BiomeShardStats.ISLANDS_SPAWNED);
-                if(!playerIn.isCreative()) stack.shrink(1);
+            Map<ResourceLocation, Integer> biomeMap = BiomeShardNBTHelper.getIslandBiomes(stack);
+            if(!biomeMap.isEmpty()) {
+                Biome biome = ForgeRegistries.BIOMES.getValue(biomeMap.entrySet().iterator().next().getKey());
+                PlacementSettings placementSettings = new PlacementSettings();
+                placementSettings.setRotation(Rotation.values()[itemRand.nextInt(Rotation.values().length)]);
+                BlockPos pos = playerIn.getPosition();
+                ResourceLocation structure = SupportedBiomes.getStructure(biome);
+                if(structure != null) {
+                    StructureLoaders.VANILLA_NBT.placeInWorld(structure, worldIn, pos, placementSettings, true);
+                    playerIn.addStat(BiomeShardStats.ISLANDS_SPAWNED);
+                    if(!playerIn.isCreative()) stack.shrink(1);
+                }
+                else {
+                    playerIn.sendStatusMessage(new TextComponentTranslation("message.biome_shards.wrongBiome", biome.getRegistryName()).setStyle(new Style().setColor(TextFormatting.RED)), true);
+                }
             }
-            else playerIn.sendStatusMessage(new TextComponentTranslation("message.biome_shards.wrongBiome", worldIn.getBiome(pos).getRegistryName()).setStyle(new Style().setColor(TextFormatting.RED)), true);
+
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if(this.isInCreativeTab(tab)) {
+            ForgeRegistries.BIOMES.getKeys().stream().filter(rl -> "minecraft".equals(rl.getNamespace()) && !"void".equals(rl.getPath())).forEach(biome -> {
+                ItemStack stack = new ItemStack(this);
+                BiomeShardNBTHelper.setIslandBiomes(new HashMap<ResourceLocation, Integer>() {{
+                    put(biome, 1);
+                }}, stack); //do NOT use fastutil because that's client-only
+                items.add(stack);
+            });
+        }
     }
 
     @SideOnly(Side.CLIENT)

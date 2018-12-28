@@ -2,11 +2,13 @@ package com.github.glasspane.biomeshards;
 
 import com.github.glasspane.biomeshards.init.*;
 import com.github.upcraftlp.glasspane.api.proxy.IProxy;
+import com.github.upcraftlp.glasspane.api.util.logging.PrefixMessageFactory;
 import com.github.upcraftlp.glasspane.util.ModUpdateHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
+import org.apache.logging.log4j.*;
 
 import static com.github.glasspane.biomeshards.BiomeShards.*;
 
@@ -40,6 +42,12 @@ public class BiomeShards {
     };
     @SidedProxy(clientSide = "com.github.glasspane.biomeshards.proxy.ClientProxy", serverSide = "com.github.glasspane.biomeshards.proxy.ServerProxy")
     public static IProxy proxy;
+
+    private static final Logger log = LogManager.getLogger(MODID, new PrefixMessageFactory(MODNAME));
+
+    public static Logger getLogger() {
+        return log;
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

@@ -134,6 +134,7 @@ minecraft {
 dependencies {
 
     compile "com.github.glasspane:GlassPane:${gp_version}"
+    compileOnly "mezz.jei:jei_${mc_version}:${jei_version}:api"
 }
 
 // API jar
